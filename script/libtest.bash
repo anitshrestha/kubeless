@@ -330,9 +330,10 @@ test_kubeless_function_update() {
     verify_function $func ${func}-update-verify
 }
 create_basic_auth_secret() {
+    local secret=${1:?}; shift
     sudo apt-get install apache2-utils
     htpasswd -cb basic-auth foo bar
-    kubectl create secret generic basic-auth --from-file=basic-auth
+    kubectl create secret generic $secret --from-file=basic-auth
 }
 create_http_trigger(){
     local func=${1:?}; shift
